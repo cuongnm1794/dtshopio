@@ -51,5 +51,5 @@ class Database
     }
 }
 
-$db = new Database("localhost", "dtshopio_crawl", "dtshopio_crawl", "dtshopio_crawl");
+$db = new Database("localhost", "root", "Manhcuong0107$$", "dtshop");
 $db->connect();
