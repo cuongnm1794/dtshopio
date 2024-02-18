@@ -13,7 +13,7 @@ $created_logs = [];
 // check if id_product exist
 if ($id_product) {
     // get all log
-    $sql = "SELECT * FROM product_prices WHERE id_product = '$id_product' and site='$site' ORDER BY id DESC";
+    $sql = "SELECT * FROM product_prices WHERE id_product = '$id_product' " . (!empty($site) ? "and site='$site'" : "") . " ORDER BY id DESC";
     $result = $db->query($sql);
     $logs = $result->fetchAll();
 
