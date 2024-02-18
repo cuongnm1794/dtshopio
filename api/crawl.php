@@ -270,8 +270,8 @@ echo '<b>Total Execution Time:</b> ' . $execution_time . ' s';
 ?>
 
 <script>
-    // reload page after 2 minutes
-    setTimeout(() => {
-        window.location.reload();
-    }, 120000);
+// reload page after 2 minutes
+setTimeout(() => {
+    window.location.reload();
+}, 120000);
 </script>

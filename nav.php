@@ -28,6 +28,19 @@
              <span>Có thể mua - realtime2</span></a>
      </li>
 
+     <hr class="sidebar-divider">
+     <li class="nav-item <?= ($_SERVER['REQUEST_URI'] == '/ec-geo.php') ? 'active' : ""; ?>">
+         <a class="nav-link" href="/ec-geo.php">
+             <i class="fas fa-fw fa-list"></i>
+             <span>Ec.Geo-online</span></a>
+     </li>
+     <li class="nav-item <?= ($_SERVER['REQUEST_URI'] == '/suruga.php') ? 'active' : ""; ?>">
+         <a class="nav-link" href="/suruga.php">
+             <i class="fas fa-fw fa-list"></i>
+             <span>Suruga</span></a>
+     </li>
+
+
      <!-- Divider -->
      <hr class="sidebar-divider">
 

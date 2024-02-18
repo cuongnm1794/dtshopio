@@ -5,6 +5,7 @@ include "./top.php";
 include "./db.php";
 
 $id_product = $_GET["id"] ?? "";
+$site = $_GET["site"] ?? "";
 
 $logs = [];
 $value_logs = [];
@@ -12,7 +13,7 @@ $created_logs = [];
 // check if id_product exist
 if ($id_product) {
     // get all log
-    $sql = "SELECT * FROM product_prices WHERE id_product = '$id_product' ORDER BY id DESC";
+    $sql = "SELECT * FROM product_prices WHERE id_product = '$id_product' and site='$site' ORDER BY id DESC";
     $result = $db->query($sql);
     $logs = $result->fetchAll();
 
