@@ -27,8 +27,8 @@ function crawl($page = 1)
 
     $link = "https://online.nojima.co.jp/app/catalog/list/init?searchCategoryCode=0&mode=image&pageSize=120&currentPage=1&alignmentSequence=2&searchDispFlg=true&discontinuedFlg=1&immediateDeliveryDispFlg=1&searchWord=iPhone%20%E4%B8%AD%E5%8F%A4%E5%93%81&searchExclusionWord=SE";
     $html = curl_get($link);
-    
-    file_put_contents("test.html",$html);
+
+    // file_put_contents("test.html",$html);
 
     // find dom class commoditylistitem
     $dom = new DOMDocument();
@@ -200,8 +200,8 @@ function crawl($page = 1)
                 $db->query($sql);
             }
 
-             $sql = "UPDATE products SET updated_at = CURRENT_TIMESTAMP,last_price='$product->price'  WHERE id_product = '$product->id'";
-                $db->query($sql);
+            $sql = "UPDATE products SET updated_at = CURRENT_TIMESTAMP,last_price='$product->price'  WHERE id_product = '$product->id'";
+            $db->query($sql);
 
             if ($row["price"] != $product->price) {
                 // update price
@@ -270,8 +270,8 @@ echo '<b>Total Execution Time:</b> ' . $execution_time . ' s';
 ?>
 
 <script>
-// reload page after 2 minutes
-setTimeout(() => {
-    window.location.reload();
-}, 120000);
+    // reload page after 2 minutes
+    setTimeout(() => {
+        window.location.reload();
+    }, 120000);
 </script>
