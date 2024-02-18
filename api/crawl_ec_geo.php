@@ -189,7 +189,6 @@ if ($type == "iphone") {
             }
         }
         writeLog("<hr>");
-        die();
     }
 } else if ($type == "samsung") {
     foreach ($ss_codes as $code) {
