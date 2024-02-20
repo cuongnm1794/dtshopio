@@ -1,5 +1,6 @@
 <?php
 include "../db.php";
+include "./helper.php";
 libxml_use_internal_errors(true); // Tắt cảnh báo
 
 // set time out
@@ -162,6 +163,43 @@ function crawl($url, $code, $page = 1)
                     // update last price
                     $sql = "UPDATE ec_geos SET last_price = '" . $item['price'] . "' WHERE id_product = '" . $item['id_product'] . "'";
                     $db->query($sql);
+                }
+            }
+        }
+
+
+        // get product in database
+        $sql = "SELECT * FROM ec_geos WHERE id_product = '" . $item['id_product'] . "'";
+        $result = $db->query($sql);
+
+        $item_product = $result->fetch(PDO::FETCH_ASSOC);
+
+        // check if send_message = 1 continue
+        if ($item_product['send_message'] == 1) {
+            continue;
+        }
+
+        // check price
+        $sql = "SELECT * FROM setting_price_ec_geos";
+        $result = $db->query($sql);
+
+        $setting_prices = $result->fetchAll();
+        foreach ($setting_prices as $setting_price) {
+            // check empty continue
+            if (empty($setting_price['keywords']) || empty($setting_price['price'])) {
+                continue;
+            }
+            $keywords = explode(",", $setting_price['keywords']);
+            foreach ($keywords as $keyword) {
+                if ($item['model'] == $keyword) {
+                    if ($item['price'] <= $setting_price['price']) {
+                        $content = "Sản phẩm " . $item['name'] . " có giá " . number_format($item['price']) . " thấp hơn giá cài đặt " . number_format($setting_price['price']) . " của từ khóa " . $keyword . "\n Link: " . $item['link'];
+                        sendMessage($content);
+
+                        // update send_message in surugas
+                        $sql = "UPDATE ec_geos SET send_message = 1 WHERE id_product = '" . $item['id_product'] . "'";
+                        $db->query($sql);
+                    }
                 }
             }
         }

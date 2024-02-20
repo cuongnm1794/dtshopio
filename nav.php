@@ -53,6 +53,16 @@
              <i class="fas fa-fw fa-chart-area"></i>
              <span>Cài đặt giá</span></a>
      </li>
+     <li class="nav-item <?= ($_SERVER['REQUEST_URI'] == '/setting_price_ec-geo.php') ? 'active' : ""; ?>">
+         <a class="nav-link" href="/setting_price_ec-geo.php">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>Cài đặt giá Ec geo</span></a>
+     </li>
+     <li class="nav-item <?= ($_SERVER['REQUEST_URI'] == '/setting_price_suruga.php') ? 'active' : ""; ?>">
+         <a class="nav-link" href="/setting_price_suruga.php">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>Cài đặt giá Suruga</span></a>
+     </li>
      <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], '/log.php') !== false) ? 'active' : ""; ?>">
          <a class="nav-link" href="/log.php">
              <i class="fas fa-fw fa-chart-area"></i>

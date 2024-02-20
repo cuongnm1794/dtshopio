@@ -1,5 +1,6 @@
 <?php
 include "../db.php";
+include "./helper.php";
 libxml_use_internal_errors(true); // Tắt cảnh báo
 
 // set time out
@@ -64,6 +65,7 @@ function crawl($url,  $page = 1)
             'link' => '',
             'status' => '',
             'detail' => '',
+            'model' => '',
         ];
 
         $finder = new DomXPath($node->ownerDocument);
@@ -73,7 +75,16 @@ function crawl($url,  $page = 1)
         $item['id_product'] = $id[count($id) - 1];
         $item['name'] = $title->textContent;
 
+        //iPhone 15 Pro 1TB (docomo/ブルーチタニウム) [MTUU3J/A]
+        //iPhone 15 Pro Max 256GB (SIMフリー/ブラックチタニウム) [MU6P3J/A]
 
+        // regex (.*?)(TB|GB) and get first
+        $pattern = "/(.*?)(TB|GB)/";
+        preg_match($pattern, $item['name'], $matches);
+
+        if (count($matches) > 0) {
+            $item['model'] = $matches[0];
+        }
 
         // check if link host has https://www.suruga-ya.jp
         if (strpos($item['link'], "https://www.suruga-ya.jp") === false) {
@@ -115,20 +126,15 @@ function crawl($url,  $page = 1)
                 $item['detail'] = $note[0]->textContent;
             }
         }
-
-
-
-
         $products[] = $item;
 
         // check if product exist in table ec_geos
         $sql = "SELECT * FROM surugas WHERE id_product = '" . $item['id_product'] . "'";
         $result = $db->query($sql);
 
-
         if ($result->rowCount() == 0) {
             // insert in to surugas
-            $sql = "INSERT INTO surugas (id_product, name, link, status, detail, last_price) VALUES ('" . $item['id_product'] . "', '" . $item['name'] . "', '" . $item['link'] . "', '" . $item['status'] . "', '" . $item['detail'] . "', '" . $item['price'] . "')";
+            $sql = "INSERT INTO surugas (id_product, name, link, status, detail, last_price, model) VALUES ('" . $item['id_product'] . "', '" . $item['name'] . "', '" . $item['link'] . "', '" . $item['status'] . "', '" . $item['detail'] . "', '" . $item['price'] . "', '" . $item['model'] . "')";
             $db->query($sql);
 
 
@@ -159,6 +165,42 @@ function crawl($url,  $page = 1)
                 // update last price
                 $sql = "UPDATE surugas SET last_price = '" . $item['price'] . "' WHERE id_product = '" . $item['id_product'] . "'";
                 $db->query($sql);
+            }
+        }
+
+        // get product in database
+        $sql = "SELECT * FROM surugas WHERE id_product = '" . $item['id_product'] . "'";
+        $result = $db->query($sql);
+
+        $item_product = $result->fetch(PDO::FETCH_ASSOC);
+
+        // check if send_message = 1 continue
+        if ($item_product['send_message'] == 1) {
+            continue;
+        }
+
+        // check price
+        $sql = "SELECT * FROM setting_price_surugas";
+        $result = $db->query($sql);
+
+        $setting_prices = $result->fetchAll();
+        foreach ($setting_prices as $setting_price) {
+            // check empty continue
+            if (empty($setting_price['keywords']) || empty($setting_price['price'])) {
+                continue;
+            }
+            $keywords = explode(",", $setting_price['keywords']);
+            foreach ($keywords as $keyword) {
+                if ($item['model'] == $keyword) {
+                    if ($item['price'] <= $setting_price['price']) {
+                        $content = "Sản phẩm " . $item['name'] . " có giá " . number_format($item['price']) . " thấp hơn giá cài đặt " . number_format($setting_price['price']) . " của từ khóa " . $keyword . "\n Link: " . $item['link'];
+                        sendMessage($content);
+
+                        // update send_message in surugas
+                        $sql = "UPDATE surugas SET send_message = 1 WHERE id_product = '" . $item['id_product'] . "'";
+                        $db->query($sql);
+                    }
+                }
             }
         }
     }

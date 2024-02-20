@@ -1,5 +1,6 @@
 <?php
 include "../db.php";
+include "./helper.php";
 libxml_use_internal_errors(true); // Tắt cảnh báo
 
 // set time out
@@ -222,6 +223,49 @@ function crawl($page = 1)
             $sql = "INSERT INTO product_prices (id_product, price) VALUES ('$product->id', '$product->price')";
             $db->query($sql);
         }
+
+        // get product in database
+        $sql = "SELECT * FROM products WHERE id_product = '" . $product->id . "'";
+        $result = $db->query($sql);
+
+        $item_product = $result->fetch(PDO::FETCH_ASSOC);
+
+        // check if send_message = 1 continue
+        if ($item_product['send_message'] == 1) {
+            continue;
+        }
+
+        // check price
+        $sql = "SELECT * FROM setting_price";
+        $result = $db->query($sql);
+
+        $setting_prices = $result->fetchAll();
+        foreach ($setting_prices as $setting_price) {
+            // check empty continue
+            if (empty($setting_price['keywords']) || empty($setting_price['price'])) {
+                continue;
+            }
+            $keywords = explode(",", $setting_price['keywords']);
+            foreach ($keywords as $keyword) {
+                if ($product->model == $keyword) {
+                    if ($product->price <= $setting_price['price']) {
+                        $link = "https://online.nojima.co.jp/app/catalog/detail/addcart/1/" . $item_product['id_product'] . '?quantity=1&shopCode=1&giftCode=99&optionCommodity=99&selectSkuCode=' . $item_product['id_product'] . '&reorderFlg=true&shippingShopCode=1&oldAddreessNo=0&shippingAddress=928782&deliveryTypeCode=0';
+                        $content = "Sản phẩm " . $product->name . " có giá " . number_format($product->price) . " thấp hơn giá cài đặt " . number_format($setting_price['price']) . " của từ khóa " . $keyword . "\n Link: " . $link;
+                        sendMessage($content);
+
+                        // update send_message in surugas
+                        $sql = "UPDATE products SET send_message = 1 WHERE id = '" . $product->id . "'";
+                        $db->query($sql);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // echo json
+        echo json_encode($product);
+
+        die();
     }
     return $html;
 }

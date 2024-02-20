@@ -23,6 +23,7 @@ $products = $result->fetchAll();
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <th>ID</th>
+                    <th>Model</th>
                     <th>Giá bán</th>
                     <th>Tên</th>
                     <th>Trạng thái</th>
@@ -33,28 +34,30 @@ $products = $result->fetchAll();
                 </thead>
                 <tbody>
                     <?php foreach ($products as $product) { ?>
-                        <tr>
-                            <td>
-                                <a href="<?= $product['link'] ?>" target="_blank"><?= $product['id_product'] ?></a>
-                            </td>
-                            <td><?= $product['last_price'] ?></td>
-                            <td>
-                                <a href="<?= $product['link'] ?>" target="_blank"><?= $product['name'] ?></a>
-                            </td>
-                            <td><?= $product['status'] ?></td>
-                            <td><?=
+                    <tr>
+                        <td>
+                            <a href="<?= $product['link'] ?>" target="_blank"><?= $product['id_product'] ?></a>
+                        </td>
+                        <td><?= $product['model'] ?></td>
+                        <td><?= $product['last_price'] ?></td>
+                        <td>
+                            <a href="<?= $product['link'] ?>" target="_blank"><?= $product['name'] ?></a>
+                        </td>
+                        <td><?= $product['status'] ?></td>
+                        <td><?=
                                 // convert format to 09/08/17:00
                                 //date('d/m H:i', strtotime($product['created_at']))
                                 $product['created_at']
                                 ?></td>
-                            <td><?= date('d/m H:i', strtotime($product['updated_at'])) ?></td>
-                            <td><?= $product['detail'] ?></td>
-                            <td>
-                                <!-- button view log -->
-                                <a href="log.php?id=<?= $product['id_product'] ?>&site=surugas" class="btn btn-primary btn-sm">Xem
-                                    log</a>
-                            </td>
-                        </tr>
+                        <td><?= date('d/m H:i', strtotime($product['updated_at'])) ?></td>
+                        <td><?= $product['detail'] ?></td>
+                        <td>
+                            <!-- button view log -->
+                            <a href="log.php?id=<?= $product['id_product'] ?>&site=surugas"
+                                class="btn btn-primary btn-sm">Xem
+                                log</a>
+                        </td>
+                    </tr>
                     <?php } ?>
                 </tbody>
             </table>

@@ -49,7 +49,6 @@ $setting_price = [
     "created_at" => "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
     "updated_at" => "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
     "isDemo" => "INT(11) UNSIGNED NOT NULL DEFAULT 0"
-
 ];
 
 $schema->createTable("setting_price", $setting_price);
