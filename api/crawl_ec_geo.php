@@ -210,10 +210,10 @@ function crawl($url, $code, $page = 1)
 
 function writeLog($content)
 {
-    $myfile = fopen("log.txt", "a") or die("Unable to open file!");
-    $txt = $content . "\n";
-    fwrite($myfile, $txt);
-    fclose($myfile);
+    // $myfile = fopen("log.txt", "a") or die("Unable to open file!");
+    // $txt = $content . "\n";
+    // fwrite($myfile, $txt);
+    // fclose($myfile);
 }
 
 if ($type == "iphone") {

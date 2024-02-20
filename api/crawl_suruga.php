@@ -211,10 +211,10 @@ function crawl($url,  $page = 1)
 
 function writeLog($content)
 {
-    $myfile = fopen("log.txt", "a") or die("Unable to open file!");
-    $txt = $content . "\n";
-    fwrite($myfile, $txt);
-    fclose($myfile);
+    // $myfile = fopen("log.txt", "a") or die("Unable to open file!");
+    // $txt = $content . "\n";
+    // fwrite($myfile, $txt);
+    // fclose($myfile);
 }
 
 for ($page = 1; $page <= 100; $page++) {
