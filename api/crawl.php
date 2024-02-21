@@ -261,11 +261,6 @@ function crawl($page = 1)
                 }
             }
         }
-
-        // echo json
-        echo json_encode($product);
-
-        die();
     }
     return $html;
 }
