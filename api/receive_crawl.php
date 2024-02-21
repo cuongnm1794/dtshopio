@@ -105,11 +105,18 @@ function crawl($products)
         $result = $db->query($sql);
 
         $setting_prices = $result->fetchAll();
+        $break_all = false;
         foreach ($setting_prices as $setting_price) {
             // check empty continue
-            if (empty($setting_price['keywords']) || empty($setting_price['price'])) {
+            if (empty($setting_price['keywords']) || empty($setting_price['price']) || $setting_price['isDemo'] != $item_product['isDemo']) {
                 continue;
             }
+
+            // check if break all
+            if ($break_all) {
+                break;
+            }
+
             $keywords = explode(",", $setting_price['keywords']);
             foreach ($keywords as $keyword) {
                 if ($product->model == $keyword) {
@@ -123,6 +130,7 @@ function crawl($products)
                         $sql = "UPDATE products SET send_message = 1 WHERE id = '" . $item_product['id'] . "'";
                         echo $sql;
                         $db->query($sql);
+                        $break_all = true;
                         break;
                     }
                 }
