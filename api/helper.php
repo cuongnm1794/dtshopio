@@ -17,7 +17,7 @@ function sendMessage($content)
     $ch = curl_init($url);
 
     curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, ["chat_id" => $chatId, "text" => $content]);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, ["chat_id" => $chatId, "text" => $content, 'parse_mode' => 'HTML']);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ["Content-Type: multipart/form-data"]);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
