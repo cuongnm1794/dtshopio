@@ -114,8 +114,9 @@ function crawl($products)
             foreach ($keywords as $keyword) {
                 if ($product->model == $keyword) {
                     if ($product->price <= $setting_price['price']) {
-                        $link = "https://online.nojima.co.jp//commodity/1/" . $item_product['id_product'];
-                        $content = "Sản phẩm " . $product->name . " có giá " . number_format($product->price) . " thấp hơn giá cài đặt " . number_format($setting_price['price']) . " của từ khóa " . $keyword . "\n Link: " . $link;
+                        $link = "https://online.nojima.co.jp/app/catalog/detail/addcart/1/" . $item_product['id_product'] . '?quantity=1&shopCode=1&giftCode=99&optionCommodity=99&selectSkuCode=' . $item_product['id_product'] . '&reorderFlg=true&shippingShopCode=1&oldAddreessNo=0&shippingAddress=928782&deliveryTypeCode=0';
+                        $link2 = "https://online.nojima.co.jp//commodity/1/" . $item_product['id_product'];
+                        $content = "Sản phẩm " . $product->name . " có giá " . number_format($product->price) . " thấp hơn giá cài đặt " . number_format($setting_price['price']) . " của từ khóa " . $keyword . "\n Link: " . $link . "\n Link2: " . $link2;
                         sendMessage($content);
 
                         // update send_message in surugas
