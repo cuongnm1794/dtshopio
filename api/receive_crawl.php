@@ -27,9 +27,6 @@ function crawl($products)
     // loop products and check if exist in db -> add price to db else create new products
     foreach ($products as $product) {
 
-
-
-
         $sql = "SELECT count(1) as total FROM products WHERE id_product = '$product->id'";
         $result = $db->query($sql);
         $total = $result->fetchColumn();
@@ -137,3 +134,5 @@ $x = file_get_contents("php://input");
 $xx = json_decode($x);
 $data = $xx->products;
 crawl($data);
+
+echo "Time: " . (microtime(true) - $time_start);
