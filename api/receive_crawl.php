@@ -1,5 +1,6 @@
 <?php
 include "../db.php";
+include "./helper.php";
 // libxml_use_internal_errors(true); // Tắt cảnh báo
 // set time out
 set_time_limit(0);
@@ -129,10 +130,12 @@ function crawl($products)
 }
 
 $time_start = microtime(true);
-echo "Time: " . (microtime(true) - $time_start);
-die();
+
 
 $x = file_get_contents("php://input");
 $xx = json_decode($x);
 $data = $xx->products;
 crawl($data);
+
+echo "Time: " . (microtime(true) - $time_start);
+die();
