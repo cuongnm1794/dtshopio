@@ -120,7 +120,7 @@ function crawl($products)
                         sendMessage($content);
 
                         // update send_message in surugas
-                        $sql = "UPDATE products SET send_message = 1 WHERE id = '" . $product->id . "'";
+                        $sql = "UPDATE products SET send_message = 1 WHERE id = '" . $item_product['id'] . "'";
                         echo $sql;
                         $db->query($sql);
                         break;
@@ -128,7 +128,6 @@ function crawl($products)
                 }
             }
         }
-        die();
     }
 }
 
