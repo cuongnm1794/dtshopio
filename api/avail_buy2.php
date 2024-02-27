@@ -1,7 +1,7 @@
 <?php
 
 include "../db.php";
-
+libxml_use_internal_errors(true);
 // turn off debug
 ini_set('display_errors', 0);
 
