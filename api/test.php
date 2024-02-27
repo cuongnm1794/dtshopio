@@ -1,4 +1,4 @@
-<?php 
+<?php
 include "../db.php";
 libxml_use_internal_errors(true); // Tắt cảnh báo
 
@@ -8,6 +8,8 @@ set_time_limit(0);
 // show error
 ini_set('display_errors', 1);
 
+die("oke test");
+
 
 // function curl get 
 function curl_get($link)
@@ -15,7 +17,7 @@ function curl_get($link)
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $link);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOTP_USERAGENT,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
+    curl_setopt($ch, CURLOTP_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
     $result = curl_exec($ch);
     curl_close($ch);
     return $result;
@@ -28,12 +30,10 @@ function crawl($page = 1)
 
     $link = "https://online.nojima.co.jp";
     $html = curl_get($link);
-    
+
     echo json_encode($html);
-    
-    file_put_contents("test11.html",$html);
-    
-    
+
+    file_put_contents("test11.html", $html);
 }
 
 $ch = curl_init();
