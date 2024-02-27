@@ -16,7 +16,7 @@ $prices = $result->fetchAll();
 $sql = "SELECT * FROM products where status = 'Available'";
 $result = $db->query($sql);
 $products = $result->fetchAll();
-
+die("oke test");
 $products_buy = [];
 
 // loop all products
