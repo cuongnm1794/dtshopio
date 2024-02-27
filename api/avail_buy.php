@@ -5,6 +5,7 @@ include "../db.php";
 // turn off debug
 ini_set('display_errors', 1);
 
+die("oke test");
 
 
 // get all setting price
@@ -16,7 +17,6 @@ $prices = $result->fetchAll();
 $sql = "SELECT * FROM products where status = 'Available'";
 $result = $db->query($sql);
 $products = $result->fetchAll();
-die("oke test");
 $products_buy = [];
 
 // loop all products
