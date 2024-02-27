@@ -62,16 +62,16 @@ foreach ($products as $product) {
 
     // find price_product
     $price_product = 0;
-    if($_GET["reverse"]){
+    if ($_GET["reverse"]) {
         foreach ($product_prices as $product_price) {
-            if($product_price["id_product"] == $product["id_product"]){
+            if ($product_price["id_product"] == $product["id_product"]) {
                 $price_product = $product_price["price"];
                 break;
             }
         }
-    }else{
+    } else {
         foreach (array_reverse($product_prices) as $product_price) {
-            if($product_price["id_product"] == $product["id_product"]){
+            if ($product_price["id_product"] == $product["id_product"]) {
                 $price_product = $product_price["price"];
                 break;
             }
@@ -99,6 +99,7 @@ foreach ($products as $product) {
             }
         }
     }
+}
 
 
 //     // loop all price
