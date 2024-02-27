@@ -28,6 +28,16 @@ $time_end_get_products = microtime(true);
 // write log to
 file_put_contents("log_debug.txt", "Time get products: " . ($time_end_get_products - $time_end_get_setting) . "\n", FILE_APPEND);
 
+// get all product prices
+$sql = "SELECT * FROM product_prices";
+$result = $db->query($sql);
+$product_prices = $result->fetchAll();
+
+$time_end_get_product_prices = microtime(true);
+
+// write log to
+file_put_contents("log_debug.txt", "Time get product prices: " . ($time_end_get_product_prices - $time_end_get_products) . "\n", FILE_APPEND);
+
 // loop all products
 foreach ($products as $product) {
     // check if product name has ソフトバンク -> continue
@@ -44,11 +54,33 @@ foreach ($products as $product) {
     }
 
 
-    // get last price of product in log
-    $sql = "SELECT * FROM product_prices WHERE id_product = '" . $product["id_product"] . "' ORDER BY id " . ($_GET["reverse"] ? "ASC" : "DESC") . " LIMIT 1";
-    $result = $db->query($sql);
-    $price_product = $result->fetch();
-    $price_product = $price_product["price"];
+    // // get last price of product in log
+    // $sql = "SELECT * FROM product_prices WHERE id_product = '" . $product["id_product"] . "' ORDER BY id " . ($_GET["reverse"] ? "ASC" : "DESC") . " LIMIT 1";
+    // $result = $db->query($sql);
+    // $price_product = $result->fetch();
+    // $price_product = $price_product["price"];
+
+    // loop all price
+    foreach ($prices as $price) {
+
+        // keywords
+        $keywords = explode(",", $price["keywords"]);
+
+        // loop all keywords
+        foreach ($keywords as $keyword) {
+
+            // check if keyword in name
+            if ($product["model"] == $keyword) {
+
+                // check if price < price in setting price
+                if ($price_product <= $price["price"] && $price["isDemo"] == $product["isDemo"]) {
+                    $product["price"] = $price_product;
+                    // push product to products_buy
+                    $products_buy[] = $product;
+                }
+            }
+        }
+    }
 
 
     // loop all price
