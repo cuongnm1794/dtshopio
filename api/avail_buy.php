@@ -6,17 +6,27 @@ libxml_use_internal_errors(true);
 // turn off debug
 ini_set('display_errors', 1);
 
-
+$time_start = microtime(true);
 // get all setting price
 $sql = "SELECT * FROM setting_price where price > 0";
 $result = $db->query($sql);
 $prices = $result->fetchAll();
+
+$time_end_get_setting = microtime(true);
+// write log to 
+file_put_contents("log_debug.txt", "Time get setting price: " . ($time_end_get_setting - $time_start) . "\n", FILE_APPEND);
+
+
 
 // get all products
 $sql = "SELECT * FROM products where status = 'Available'";
 $result = $db->query($sql);
 $products = $result->fetchAll();
 $products_buy = [];
+
+$time_end_get_products = microtime(true);
+// write log to
+file_put_contents("log_debug.txt", "Time get products: " . ($time_end_get_products - $time_end_get_setting) . "\n", FILE_APPEND);
 
 // loop all products
 foreach ($products as $product) {
