@@ -32,11 +32,13 @@ include "./db.php";
                         <tr v-for="product in products" :key="product.id">
                             <td>{{ product.model }}</td>
                             <td>
-                                <a :href="`https://online.nojima.co.jp/app/catalog/detail/addcart/1/`+product.id_product+`?quantity=1&shopCode=1&giftCode=99&optionCommodity=99&selectSkuCode=`+product.id_product+`&reorderFlg=true&shippingShopCode=1&oldAddreessNo=0&shippingAddress=928782&deliveryTypeCode=0`" target="_blank">{{ product.id_product }}</a>
-                                </td>
+                                <a :href="`https://online.nojima.co.jp/app/catalog/detail/addcart/1/`+product.id_product+`?quantity=1&shopCode=1&giftCode=99&optionCommodity=99&selectSkuCode=`+product.id_product+`&reorderFlg=true&shippingShopCode=1&oldAddreessNo=0&shippingAddress=928782&deliveryTypeCode=0`"
+                                    target="_blank">{{ product.id_product }}</a>
+                            </td>
                             <td>{{ product.price }}</td>
                             <td>
-                                <a :href="`https://online.nojima.co.jp/`+product.link" target="_blank">{{ product.name }}</a>
+                                <a :href="`https://online.nojima.co.jp/`+product.link"
+                                    target="_blank">{{ product.name }}</a>
                             </td>
                             <td>{{ product.isDemo }}</td>
                             <td>{{ product.status }}</td>
@@ -68,33 +70,33 @@ include "./footer.php";
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 <script>
-    var app = new Vue({
-        el: '#app',
-        data: {
-            message: 'Xin chào từ Vue!',
-            products: [],
-            lastUpdate: ''
-        },
-        created: function() {
-            this.loadDataFromApi(); // Gọi lần đầu
-            setInterval(this.loadDataFromApi, 5000);
-        },
-        methods: {
-            loadDataFromApi: function() {
+var app = new Vue({
+    el: '#app',
+    data: {
+        message: 'Xin chào từ Vue!',
+        products: [],
+        lastUpdate: ''
+    },
+    created: function() {
+        this.loadDataFromApi(); // Gọi lần đầu
+        setInterval(this.loadDataFromApi, 10000);
+    },
+    methods: {
+        loadDataFromApi: function() {
 
-                this.lastUpdate = new Date().toLocaleString();
+            this.lastUpdate = new Date().toLocaleString();
 
-                axios.get('/api/avail_buy.php')
-                    .then(response => {
-                        // handle success
-                        console.log(response.data.data);
-                        this.products = response.data.data;
-                    })
-                    .catch(function(error) {
-                        // handle error
-                        console.log(error);
-                    })
-            }
+            axios.get('/api/avail_buy.php')
+                .then(response => {
+                    // handle success
+                    console.log(response.data.data);
+                    this.products = response.data.data;
+                })
+                .catch(function(error) {
+                    // handle error
+                    console.log(error);
+                })
         }
-    });
+    }
+});
 </script>

@@ -60,6 +60,24 @@ foreach ($products as $product) {
     // $price_product = $result->fetch();
     // $price_product = $price_product["price"];
 
+    // find price_product
+    $price_product = 0;
+    if($_GET["reverse"]){
+        foreach ($product_prices as $product_price) {
+            if($product_price["id_product"] == $product["id_product"]){
+                $price_product = $product_price["price"];
+                break;
+            }
+        }
+    }else{
+        foreach (array_reverse($product_prices) as $product_price) {
+            if($product_price["id_product"] == $product["id_product"]){
+                $price_product = $product_price["price"];
+                break;
+            }
+        }
+    }
+
     // loop all price
     foreach ($prices as $price) {
 
@@ -83,28 +101,28 @@ foreach ($products as $product) {
     }
 
 
-    // loop all price
-    foreach ($prices as $price) {
+//     // loop all price
+//     foreach ($prices as $price) {
 
-        // keywords
-        $keywords = explode(",", $price["keywords"]);
+//         // keywords
+//         $keywords = explode(",", $price["keywords"]);
 
-        // loop all keywords
-        foreach ($keywords as $keyword) {
+//         // loop all keywords
+//         foreach ($keywords as $keyword) {
 
-            // check if keyword in name
-            if ($product["model"] == $keyword) {
+//             // check if keyword in name
+//             if ($product["model"] == $keyword) {
 
-                // check if price < price in setting price
-                if ($price_product <= $price["price"] && $price["isDemo"] == $product["isDemo"]) {
-                    $product["price"] = $price_product;
-                    // push product to products_buy
-                    $products_buy[] = $product;
-                }
-            }
-        }
-    }
-}
+//                 // check if price < price in setting price
+//                 if ($price_product <= $price["price"] && $price["isDemo"] == $product["isDemo"]) {
+//                     $product["price"] = $price_product;
+//                     // push product to products_buy
+//                     $products_buy[] = $product;
+//                 }
+//             }
+//         }
+//     }
+// }
 
 // return json
 echo json_encode(["data" => $products_buy]);

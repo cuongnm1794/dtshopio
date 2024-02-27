@@ -31,7 +31,8 @@ include "./db.php";
                     <tbody>
                         <tr v-for="product in products" :key="product.id">
                             <td>{{ product.model }}</td>
-                            <td><a :href="`https://online.nojima.co.jp/app/catalog/detail/addcart/1/`+product.id_product+`?quantity=1&shopCode=1&giftCode=99&optionCommodity=99&selectSkuCode=`+product.id_product+`&reorderFlg=true&shippingShopCode=1&oldAddreessNo=0&shippingAddress=928782&deliveryTypeCode=0`" target="_blank">{{ product.id_product }}</a>
+                            <td><a :href="`https://online.nojima.co.jp/app/catalog/detail/addcart/1/`+product.id_product+`?quantity=1&shopCode=1&giftCode=99&optionCommodity=99&selectSkuCode=`+product.id_product+`&reorderFlg=true&shippingShopCode=1&oldAddreessNo=0&shippingAddress=928782&deliveryTypeCode=0`"
+                                    target="_blank">{{ product.id_product }}</a>
                             </td>
                             <td>{{ product.price }}</td>
                             <td>
@@ -77,7 +78,7 @@ var app = new Vue({
     },
     created: function() {
         this.loadDataFromApi(); // Gọi lần đầu
-        setInterval(this.loadDataFromApi, 5000);
+        setInterval(this.loadDataFromApi, 10000);
     },
     methods: {
         loadDataFromApi: function() {
