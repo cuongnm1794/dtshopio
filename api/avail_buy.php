@@ -6,8 +6,6 @@ libxml_use_internal_errors(true);
 // turn off debug
 ini_set('display_errors', 1);
 
-die("oke test");
-
 
 // get all setting price
 $sql = "SELECT * FROM setting_price where price > 0";
