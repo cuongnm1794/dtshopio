@@ -47,7 +47,6 @@ include "./top.php";
                 "?quantity=1&shopCode=1&giftCode=99&optionCommodity=99&selectSkuCode=" + link +
                 "&reorderFlg=true&shippingShopCode=1&oldAddreessNo=0&shippingAddress=928782&deliveryTypeCode=0"
 
-<<<<<<< HEAD
             // create li
             var li = document.createElement("li");
             // create a
@@ -56,20 +55,6 @@ include "./top.php";
             a.href = link_sample;
             // set text
             a.innerText = link_sample;
-=======
-        // create li
-        var li = document.createElement("li");
-        // create a
-        var a = document.createElement("a");
-        // set href
-        a.href = link_sample;
-        // set text
-        a.innerText = link;
-        // append to li
-        li.appendChild(a);
-        // append to ul
-        document.getElementById("list-links").appendChild(li);
->>>>>>> 1554d31 (get)
 
             // taget blank
             a.target = "_blank";
