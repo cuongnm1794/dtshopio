@@ -74,6 +74,13 @@
              <i class="fas fa-fw fa-chart-area"></i>
              <span>Get Imei</span></a>
      </li>
+
+     <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], '/tau_nhanh.php') !== false) ? 'active' : ""; ?>">
+         <a class="nav-link" href="/tau_nhanh.php">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>Tàu nhanh</span></a>
+     </li>
+
      <!-- Divider -->
 
      <!-- Sidebar Toggler (Sidebar) -->
