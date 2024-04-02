@@ -1,5 +1,7 @@
 <?php
 include "../db.php";
+include "./helper.php";
+
 libxml_use_internal_errors(true); // Tắt cảnh báo
 
 // set time out
@@ -7,6 +9,10 @@ set_time_limit(0);
 
 // show error
 ini_set('display_errors', 1);
+$link = 'https://online.nojima.co.jp/app/catalog/detail/addcart/1/8800003685172?quantity=1&shopCode=1&giftCode=99&optionCommodity=99&selectSkuCode=8800003685172&reorderFlg=true&shippingShopCode=1&oldAddreessNo=0&shippingAddress=928782&deliveryTypeCode=0';
+$content = "Sản phẩm   DOCOMO iPhone 8 64 GB Gold có giá 5,000 thấp hơn giá cài đặt 6,500 của từ khóa iPhone 8 64 GB \n Link: : " . $link;
+
+sendMessage($content);
 
 die("oke test");
 
