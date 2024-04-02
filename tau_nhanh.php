@@ -24,7 +24,8 @@ include "./top.php";
             <textarea name="link" id="links" cols="30" rows="10" class="form-control"></textarea>
         </div>
         <button type="button" id="go" class="btn btn-primary">Đi tàu</button>
-
+        <hr />
+        <ul id="list-links"></ul>
     </div>
 </div>
 <script>
@@ -43,11 +44,14 @@ include "./top.php";
         links.forEach(function(link, key) {
 
             let link_sample = "https://online.nojima.co.jp/app/catalog/detail/addcart/1/" + link +
-                "?quantity=1&shopCode=1&giftCode=99&optionCommodity=99&selectSkuCode=`+product.id_product+`&reorderFlg=true&shippingShopCode=1&oldAddreessNo=0&shippingAddress=928782&deliveryTypeCode=0"
+                "?quantity=1&shopCode=1&giftCode=99&optionCommodity=99&selectSkuCode=" + link +
+                "&reorderFlg=true&shippingShopCode=1&oldAddreessNo=0&shippingAddress=928782&deliveryTypeCode=0"
 
-            // open new tab
-            window.open(link_sample, "_blank");
-
+            // create li
+            var li = document.createElement("li");
+            li.innerHTML = link_sample;
+            // append to ul
+            document.getElementById("list-links").appendChild(li);
 
         });
     });
