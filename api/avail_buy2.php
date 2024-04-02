@@ -52,7 +52,7 @@ foreach ($products as $product) {
         foreach ($keywords as $keyword) {
 
             // check if keyword in name
-            if ($product["model"] == $keyword) {
+            if (trim($product["model"]) == trim($keyword)) {
 
                 // check if price < price in setting price
                 if ($price_product <= $price["price2"] && $price["isDemo"] == $product["isDemo"]) {
