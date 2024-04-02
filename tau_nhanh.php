@@ -54,7 +54,7 @@ include "./top.php";
             // set href
             a.href = link_sample;
             // set text
-            a.innerText = link_sample;
+            a.innerText = link;
 
             // taget blank
             a.target = "_blank";
