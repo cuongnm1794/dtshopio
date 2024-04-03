@@ -310,22 +310,22 @@ if(empty($start))
 
 
 
-$file_log = "log_number_new.txt";
-$file_log = fopen($file_log,"a");
+// $file_log = "log_number_new.txt";
+// $file_log = fopen($file_log,"a");
 $current_link = $_SERVER['REQUEST_URI'];
 
 
  for ($i = $start; $i <= $end; $i++) {
       $current_time = date('H:i:s d-m-Y');
-         fwrite($file_log,json_encode([
-             'current_time' => $current_time,
-             'key'=>$time_start,
-            'start'=>$start,
-            'end' => $end,
-            'time'=>time(),
-            'turn'=>$i,
-            'current_link'=>$current_link
-                    ])."\n");
+        //  fwrite($file_log,json_encode([
+        //      'current_time' => $current_time,
+        //      'key'=>$time_start,
+        //     'start'=>$start,
+        //     'end' => $end,
+        //     'time'=>time(),
+        //     'turn'=>$i,
+        //     'current_link'=>$current_link
+        //             ])."\n");
         echo "Crawl page $i <br>";
         crawl($i);
         sleep(5);
