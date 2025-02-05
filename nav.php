@@ -39,6 +39,12 @@
              <i class="fas fa-fw fa-list"></i>
              <span>Suruga</span></a>
      </li>
+     <li class="nav-item <?= ($_SERVER['REQUEST_URI'] == '/treasure.php') ? 'active' : ""; ?>">
+         <a class="nav-link" href="/treasure.php">
+             <i class="fas fa-fw fa-list"></i>
+             <span>Treasure</span></a>
+     </li>
+
 
 
      <!-- Divider -->
@@ -63,6 +69,20 @@
              <i class="fas fa-fw fa-chart-area"></i>
              <span>Cài đặt giá Suruga</span></a>
      </li>
+     <li class="nav-item <?= ($_SERVER['REQUEST_URI'] == '/setting_price_treasure.php') ? 'active' : ""; ?>">
+         <a class="nav-link" href="/setting_price_treasure.php">
+             <i class="fas fa-fw fa-chart-area"></i>
+
+             <span>Cài đặt giá Treasure</span></a>
+     </li>
+
+     <li class="nav-item <?= ($_SERVER['REQUEST_URI'] == '/setting_model_treasure.php') ? 'active' : ""; ?>">
+         <a class="nav-link" href="/setting_model_treasure.php">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>Cài đặt model Treasure</span></a>
+     </li>
+
+
      <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], '/log.php') !== false) ? 'active' : ""; ?>">
          <a class="nav-link" href="/log.php">
              <i class="fas fa-fw fa-chart-area"></i>
