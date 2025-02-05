@@ -99,6 +99,10 @@ function crawl($url, $page = 1)
 
         // Get price
         $price_element = $finder->query(".//p[contains(@class, 'cm-typo_head4 cm-itemlist_price')]", $node)[0];
+        // check price is empty or null -> continue
+        if (empty($price_element->textContent)) {
+            continue;
+        }
         $item['price'] = str_replace(['￥', ','], '', $price_element->textContent);
 
         // Get status
