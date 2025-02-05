@@ -191,10 +191,11 @@ function crawl($page = 1)
         $classname = "cmdty_iteminfo";
 
         // find dom class commoditylistitem
-        $nodesText = $finder->query(".//*[@class= '$classname']//a//span[2]", $node);
+        $nodesText = $finder->query(".//*[@class= '$classname']//a//span[last()]", $node);
 
         // get first
         $nodeText = $nodesText->item(0);
+
 
         // get text
         $product->name = trim($nodeText->nodeValue);
@@ -213,7 +214,9 @@ function crawl($page = 1)
         }
     }
        
-
+        if(strpos($product->name,'【無料保証付き】')){
+            $product->name = str_replace("【無料保証付き】","",$product->name);
+        }
 
         // $myfile = fopen("log.txt", "a") or die("Unable to open file!");
         // $txt = $product->name . "\n";
