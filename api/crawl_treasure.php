@@ -17,7 +17,7 @@ function curl_get($link)
     return $result;
 }
 
-$url_iphone = "https://ec.treasure-f.com/search?category=1029&category2=1129&category3=1426_1427&size=grid&order=newarrival&number=90&step=11";
+$url_iphone = "https://ec.treasure-f.com/search?category=1029&category2=1129&category3=1426_1427&size=grid&order=newarrival&number=90&step=1";
 
 
 // Get model settings once at the start
